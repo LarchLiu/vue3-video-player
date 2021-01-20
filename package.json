@@ -1,16 +1,26 @@
 {
   "name": "vue3-video-player",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "dev": "vue-cli-service serve",
+    "build": "vue-cli-service build --target lib ./src/index.js",
     "lint": "vue-cli-service lint"
+  },
+  "main": "dist/vue3-video-player.common.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LarchLiu/vue3-video-player.git"
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "event-emitter": "^0.3.5",
+    "ismobilejs": "^1.1.1",
+    "load-script": "^1.0.0",
     "vue": "^3.0.0"
   },
+  "files": [
+    "/dist"
+  ],
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
@@ -23,6 +33,10 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
-    "eslint-plugin-vue": "^7.0.0-0"
-  }
+    "eslint-plugin-vue": "^7.0.0-0",
+    "less": "^4.1.0",
+    "less-loader": "^7.2.1",
+    "serialize-javascript": "^5.0.1"
+  },
+  "license": "MIT"
 }
