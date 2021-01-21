@@ -11,7 +11,6 @@
 
 <script>
 import { EVENTS } from '../constants'
-import { isMobile } from '../helper/util.js'
 import coreMixins from '../mixins'
 import { inject } from 'vue'
 
@@ -32,7 +31,7 @@ export default {
   },
   data () {
     return {
-      show: isMobile
+      show: true
     }
   },
   mounted () {
@@ -40,7 +39,7 @@ export default {
       this.show = true
     })
     this.on(EVENTS.UI_DASHBOARD_HIDE, () => {
-      this.show = false
+      if (this.isPlaying) { this.show = false } else { this.show = true }
     })
   }
 }
@@ -49,7 +48,7 @@ export default {
 <style>
 .play-pause-layer {
   z-index: 12;
-  background: rgba(0,0,0, .25);
+  background: rgba(0,0,0, 0);
 }
 .play-pause-layer .btn-control{
   display: flex;
