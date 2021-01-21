@@ -112,7 +112,7 @@ export default {
 
 <style>
 .vcp-m-dashboard {
-  z-index: 11;
+  z-index: 12;
   position: absolute;
   left: 0;
   bottom: 0;
