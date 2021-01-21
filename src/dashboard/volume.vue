@@ -20,6 +20,7 @@
 
 <script>
 import coreMixins from '../mixins'
+import { inject } from 'vue'
 // import { hasClass } from '../helper/dom'
 
 export default {
@@ -29,6 +30,15 @@ export default {
     muted: Boolean
   },
   mixins: [coreMixins],
+  setup () {
+    const playerKey = inject('playerKey')
+    return {
+      playerKey
+    }
+  },
+  created () {
+    this._playerKey = this.playerKey
+  },
   data () {
     return {
       panelShow: false,

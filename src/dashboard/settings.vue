@@ -60,6 +60,7 @@
 import { EVENTS } from '../constants'
 import SettingSwitch from '../widgets/setting-switch.vue'
 import coreMixins from '../mixins'
+import { inject } from 'vue'
 
 export default {
   name: 'Settings',
@@ -69,6 +70,15 @@ export default {
   mixins: [coreMixins],
   components: {
     'widgets-switch': SettingSwitch
+  },
+  setup () {
+    const playerKey = inject('playerKey')
+    return {
+      playerKey
+    }
+  },
+  created () {
+    this._playerKey = this.playerKey
   },
   data () {
     return {

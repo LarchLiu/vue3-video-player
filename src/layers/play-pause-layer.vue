@@ -13,12 +13,22 @@
 import { EVENTS } from '../constants'
 import { isMobile } from '../helper/util.js'
 import coreMixins from '../mixins'
+import { inject } from 'vue'
 
 export default {
   name: 'PlayPauseLayer',
   mixins: [coreMixins],
   props: {
     visible: Boolean
+  },
+  setup () {
+    const playerKey = inject('playerKey')
+    return {
+      playerKey
+    }
+  },
+  created () {
+    this._playerKey = this.playerKey
   },
   data () {
     return {

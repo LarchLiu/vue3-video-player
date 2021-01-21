@@ -13,12 +13,22 @@
 
 <script>
 import coreMixins from '../mixins'
+import { inject } from 'vue'
 
 export default {
   name: 'PlayPauseControl',
   mixins: [coreMixins],
   props: {
     visible: Boolean
+  },
+  setup () {
+    const playerKey = inject('playerKey')
+    return {
+      playerKey
+    }
+  },
+  created () {
+    this._playerKey = this.playerKey
   }
 }
 </script>

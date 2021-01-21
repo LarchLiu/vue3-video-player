@@ -3,6 +3,9 @@
     <div class="test-player-wrap">
       <vue3-video-player @play="playFunc" loop :src="source" title="《Your Name》OST Sparkle" :view-core="viewCore" :cover="cover"></vue3-video-player>
     </div>
+    <div class="test-player-wrap">
+      <vue3-video-player @play="playFunc" loop :src="source2" title="《Your Name》OST Sparkle test" :view-core="viewCore" :cover="cover"></vue3-video-player>
+    </div>
     <button @click="change"> Change Source</button>
   </div>
 </template>
@@ -45,7 +48,8 @@ export default {
   name: 'app',
   data () {
     return {
-      source: videoSource2,
+      source: videoSource,
+      source2: videoSource2,
       cover: cover,
       viewCore: [() => { console.log('view core test') }]
     }

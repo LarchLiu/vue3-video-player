@@ -14,12 +14,22 @@
 import { EVENTS } from '../constants'
 import coreMixins from '../mixins'
 import { i18n } from '../helper'
+import { inject } from 'vue'
 
 export default {
   name: 'CoverLayer',
   mixins: [coreMixins],
   props: {
     dsiable: Boolean
+  },
+  setup () {
+    const playerKey = inject('playerKey')
+    return {
+      playerKey
+    }
+  },
+  created () {
+    this._playerKey = this.playerKey
   },
   data () {
     return {

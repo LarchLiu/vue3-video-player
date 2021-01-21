@@ -16,11 +16,12 @@
 <script>
 import './style/common.less'
 
+import { provide } from 'vue'
 import { EVENTS, DEFAULT_CONFIG } from './constants'
 import { parseMediaList } from './helper/media'
 import { initVideoCore } from './core'
 import coreMixins from './mixins'
-import { isMobile, toCamelCase } from './helper/util.js'
+import { isMobile, toCamelCase, guid } from './helper/util.js'
 import Dashboard from './dashboard/dashboard.vue'
 import MobileDashboard from './dashboard/mobile-dashboard.vue'
 import Layers from './layers/layers.vue'
@@ -70,7 +71,14 @@ export default {
       default: () => []
     }
   },
+  setup (props) {
+    const playerKey = 'key-' + guid()
+    provide('playerKey', playerKey)
 
+    return {
+      playerKey
+    }
+  },
   data () {
     return {
       isMobile: isMobile,
@@ -104,6 +112,9 @@ export default {
       }
       return url
     }
+  },
+  created () {
+    this._playerKey = this.playerKey
   },
   mounted () {
     // const self = this

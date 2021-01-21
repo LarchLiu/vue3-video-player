@@ -10,6 +10,7 @@
 import { EVENTS } from '../constants'
 import coreMixins from '../mixins'
 import { secondsToTime } from '../helper/util'
+import { inject } from 'vue'
 
 export default {
   name: 'TimeSpan',
@@ -17,13 +18,22 @@ export default {
     visible: Boolean
   },
   mixins: [coreMixins],
+  setup () {
+    const playerKey = inject('playerKey')
+    return {
+      playerKey
+    }
+  },
+  created () {
+    this._playerKey = this.playerKey
+  },
   data () {
     return {
       currentTime: '00:00:00',
       duration: '--:--:--'
     }
   },
-  created () {
+  beforeMount () {
     this.on(EVENTS.TIMEUPDATE, () => {
       const currentTime = this.$player.getCurrentTime()
       if (!currentTime) {

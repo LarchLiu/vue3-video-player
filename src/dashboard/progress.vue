@@ -14,6 +14,7 @@ import { EVENTS } from '../constants'
 import coreMixins from '../mixins'
 import { getElementOffsets, isMobile } from '../helper/util'
 import { drag } from '../helper/dom'
+import { inject } from 'vue'
 
 export default {
   name: 'Progress',
@@ -21,13 +22,22 @@ export default {
     visible: Boolean
   },
   mixins: [coreMixins],
+  setup () {
+    const playerKey = inject('playerKey')
+    return {
+      playerKey
+    }
+  },
+  created () {
+    this._playerKey = this.playerKey
+  },
   data () {
     return {
       progress: 0.00,
       bufferProgress: 0.00
     }
   },
-  created () {
+  beforeMount () {
     this.on(EVENTS.TIMEUPDATE, () => {
       if (this._dragEl) {
         return

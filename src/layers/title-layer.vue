@@ -7,6 +7,7 @@
 <script>
 import { EVENTS } from '../constants'
 import coreMixins from '../mixins'
+import { inject } from 'vue'
 
 export default {
   name: 'CoverLayer',
@@ -16,6 +17,15 @@ export default {
       title: '',
       show: false
     }
+  },
+  setup () {
+    const playerKey = inject('playerKey')
+    return {
+      playerKey
+    }
+  },
+  created () {
+    this._playerKey = this.playerKey
   },
   mounted () {
     this.on(EVENTS.LIFECYCLE_INITING, (player) => {

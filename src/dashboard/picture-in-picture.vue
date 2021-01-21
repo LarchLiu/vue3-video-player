@@ -10,6 +10,7 @@
 <script>
 // import EVENTS from '../constants/EVENTS'
 import coreMixins from '../mixins'
+import { inject } from 'vue'
 
 const _isSupportPIP = () => {
   if ('pictureInPictureEnabled' in document) {
@@ -28,6 +29,12 @@ export default {
   props: {
     visible: Boolean
   },
+  setup () {
+    const playerKey = inject('playerKey')
+    return {
+      playerKey
+    }
+  },
   data () {
     return {
       show: false
@@ -37,6 +44,7 @@ export default {
     if ((_isSupportPIP)) {
       this.show = true
     }
+    this._playerKey = this.playerKey
   },
   methods: {
     requestPictureInPicture () {

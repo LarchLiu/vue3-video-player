@@ -12,6 +12,7 @@ import { isMobile } from '../helper/util'
 import Progress from './progress'
 import MobileControls from './mobile-controls'
 import coreMixins from '../mixins'
+import { inject } from 'vue'
 
 const pageCoor = {
   x: null,
@@ -34,6 +35,15 @@ export default {
     }
   },
   mixins: [coreMixins],
+  setup () {
+    const playerKey = inject('playerKey')
+    return {
+      playerKey
+    }
+  },
+  created () {
+    this._playerKey = this.playerKey
+  },
   methods: {
     showDashboard (delay) {
       window.clearTimeout(this._hideTimeout)

@@ -15,12 +15,22 @@
 // import EVENTS from '../constants/EVENTS'
 import coreMixins from '../mixins'
 import { isMobile, isApple } from '../helper/util'
+import { inject } from 'vue'
 
 export default {
   name: 'Fullscreen',
   mixins: [coreMixins],
   props: {
     visible: Boolean
+  },
+  setup () {
+    const playerKey = inject('playerKey')
+    return {
+      playerKey
+    }
+  },
+  created () {
+    this._playerKey = this.playerKey
   },
   data () {
     return {

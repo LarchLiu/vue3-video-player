@@ -9,6 +9,7 @@
 <script>
 import { EVENTS } from '../constants'
 import coreMixins from '../mixins'
+import { inject } from 'vue'
 
 export default {
   name: 'CoverLayer',
@@ -16,7 +17,15 @@ export default {
   props: {
     visible: Boolean
   },
-
+  setup () {
+    const playerKey = inject('playerKey')
+    return {
+      playerKey
+    }
+  },
+  created () {
+    this._playerKey = this.playerKey
+  },
   data () {
     return {
       logo: ''

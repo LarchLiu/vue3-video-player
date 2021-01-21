@@ -20,12 +20,22 @@
 <script>
 import { EVENTS } from '../constants'
 import coreMixins from '../mixins'
+import { inject } from 'vue'
 
 const showTimeout = 600
 
 export default {
   name: 'LoadingLayer',
   mixins: [coreMixins],
+  setup () {
+    const playerKey = inject('playerKey')
+    return {
+      playerKey
+    }
+  },
+  created () {
+    this._playerKey = this.playerKey
+  },
   data () {
     return {
       show: false
@@ -49,7 +59,7 @@ export default {
     }
   },
 
-  created () {
+  beforeMount () {
     // safari trigger canplaythrough
     this.on([EVENTS.CANPLAY, EVENTS.CANPLAYTHROUGH, EVENTS.PLAY, EVENTS.LOADEDMETADATA, EVENTS.SEEKED, EVENTS.ERROR], () => {
       this.hideLoading()
