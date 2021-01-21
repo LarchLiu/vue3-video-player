@@ -23,6 +23,13 @@ jobs:
 
       - run: npm run build
 
+      - run: |
+          cd dist
+          mkdir vue3-video-player
+          mv ./static ./vue3-video-player
+          mv ./favicon.ico ./vue3-video-player
+          mv ./index.html ./vue3-video-player
+
       - name: deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
