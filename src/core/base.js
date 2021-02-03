@@ -41,7 +41,7 @@ const VIDEO_ATTRS = [
 
 class BaseVideoCore {
   constructor (config) {
-    this.config = Object.assign(DEFAULT_CONFIG, config)
+    this.config = Object.assign({}, DEFAULT_CONFIG, config)
     this.$video = this.config.videoEl
     this.$el = this.config.el
     this._eventEmitter = config.eventEmitter
@@ -94,7 +94,6 @@ class BaseVideoCore {
     this._setVideoAttr()
     this.setContainer()
     this.setSize()
-    this.emit(EVENTS.LIFECYCLE_INITED)
     this._autoplay()
   }
 
@@ -234,7 +233,7 @@ class BaseVideoCore {
     VIDEO_EVENTS.forEach((item) => {
       this.$video.addEventListener(item, (e) => {
         // if (item !== 'timeupdate' && item !== 'progress') {
-        //   console.log(item);
+        //   console.log(item)
         // }
         const method = `on${item}`
         if (typeof this[method] === 'function') {
@@ -256,7 +255,7 @@ class BaseVideoCore {
         const error = Object.assign({}, e.target.error, {
           code: '250' + e.target.error.code
         })
-        this.emit('error', error)
+        this.emit(EVENTS.ERROR, error)
         return
       }
       if (typeof e !== 'object') {
@@ -265,7 +264,7 @@ class BaseVideoCore {
           e
         }
       }
-      this.emit('error', e)
+      this.emit(EVENTS.ERROR, e)
     })
     this.on(EVENTS.CORE_TO_MP4, () => {
       this.downgradeCore()
@@ -292,7 +291,7 @@ class BaseVideoCore {
       }
       const timeLose = bufferTime - currentTime
       if (bufferTime - currentTime < minPlayBUfferTime) {
-        this.player.pause()
+        this.pause()
         this.state.waiting_pause = true
         this.emit(EVENTS.LOADING_START, true)
       } else if (this.state.waiting_pause && timeLose > safeBufferTime) {
@@ -362,7 +361,7 @@ class BaseVideoCore {
     if (!loop) {
       return
     }
-    this.player.play()
+    this.play()
   }
 
   getDuration () {

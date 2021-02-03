@@ -1,6 +1,9 @@
 <template>
   <div class="vcp-progress-hover" ref="input" @click="seek">
     <div class="vcp-progress" ref="container">
+      <div class="vcp-progtess-preview" :style="{width: previewProgress + '%'}">
+        <div v-if="previewTime" class="preview-time">{{previewTime}}</div>
+      </div>
       <div class="vcp-progress-loaded" :style="{width: bufferProgress + '%'}"></div>
       <div class="vcp-progress-played" :style="{width: progress + '%'}">
         <div class="thumb-drag" @touchstart="startDrag" @mousedown="startDrag" ref="thumb"></div>
@@ -12,7 +15,7 @@
 <script>
 import { EVENTS } from '../constants'
 import coreMixins from '../mixins'
-import { getElementOffsets, isMobile } from '../helper/util'
+import { isMobile, secondsToTime } from '../helper/util'
 import { drag } from '../helper/dom'
 import { inject } from 'vue'
 
@@ -34,7 +37,9 @@ export default {
   data () {
     return {
       progress: 0.00,
-      bufferProgress: 0.00
+      bufferProgress: 0.00,
+      previewProgress: 0.00,
+      previewTime: ''
     }
   },
   beforeMount () {
@@ -61,12 +66,24 @@ export default {
       this.bufferProgress = (bufferTime / duration * 100).toFixed(2)
     })
   },
+  mounted () {
+    if (!isMobile) {
+      this.$refs.container.addEventListener('mousemove', this.showTime, false)
+      this.$refs.container.addEventListener('mouseenter', this.showTime, false)
+      this.$refs.container.addEventListener('mouseleave', () => { this.previewTime = '' }, false)
+    }
+  },
   methods: {
+    showTime (e) {
+      const _clientRect = e.currentTarget.getBoundingClientRect()
+      const left = e.pageX - _clientRect.left
+      const maxVal = e.currentTarget.offsetWidth
+      const duration = this.$player.getDuration()
+      const val = (left / maxVal * 100).toFixed(2)
+      this.previewProgress = val
+      this.previewTime = secondsToTime(left / maxVal * duration)
+    },
     seek (e) {
-      const offsets = getElementOffsets(e.currentTarget)
-      if (this.getFullscreen()) {
-        offsets.left = 0
-      }
       const _clientRect = e.currentTarget.getBoundingClientRect()
       const left = e.pageX - _clientRect.left
       const maxVal = e.currentTarget.offsetWidth
@@ -91,12 +108,9 @@ export default {
         marginLeft = parseFloat(marginLeft)
       }
       const coor = {
-        x: (isMobile ? e.touches[0].clientX : e.pageX) - this._dragEl.offsetLeft + marginLeft,
-        y: (isMobile ? e.touches[0].clientX : e.clientY) - this._dragEl.offsetTop,
+        x: (isMobile ? e.touches[0].clientX : e.pageX) - this._dragEl.offsetLeft + marginLeft - this._dragEl.clientWidth,
+        y: (isMobile ? e.touches[0].clientY : e.clientY) - this._dragEl.offsetTop,
         maxLeft: maxVal
-      }
-      if (this.getFullscreen()) {
-        coor.x = e.pageX - this._dragEl.offsetLeft
       }
       const move = function (ev) {
         if (!self._dragEl) {
@@ -153,7 +167,6 @@ export default {
 
   &:hover {
     .vcp-progress {
-      height: 6px;
       .thumb-drag{
         opacity: 1;
       }
@@ -174,6 +187,26 @@ export default {
 .vcp-progress-loaded {
   transition: width .1s cubic-bezier(0.4,0.0,1,1);
 }
+.vcp-progtess-preview {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 8px);
+  height: 20px;
+  background-color: rgba(0, 0, 0, 0);
+
+  .preview-time {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 4px;
+    color: #fff;
+    font-size: 12px;
+    line-height: 1;
+    border-radius: 2px;
+    transform: translateX(50%);
+    background-color: rgba(0, 0, 0, .7);
+  }
+}
 .vcp-progress-played{
   width: 0;
   background-color: #ff6060;
@@ -184,7 +217,7 @@ export default {
     top: 50%;
     width: 12px;
     height: 12px;
-    border-radius: 6px;
+    border-radius: 50%;
     background-color: #fff;
     transform: translateY(-50%) translateX(50%);
     transition: height .05s ease .15s;
@@ -196,13 +229,13 @@ export default {
       left: -2px;
       width: 16px;
       height: 16px;
-      border-radius: 7px;
+      border-radius: 50%;
       background-color: rgba(255, 255, 255, .3);
     }
   }
 }
 .vcp-m-dashboard .vcp-progress-hover {
-  bottom: 0px;
+  bottom: 100%;
   .vcp-progress {
     height: 3px;
   }

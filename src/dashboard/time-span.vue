@@ -29,8 +29,8 @@ export default {
   },
   data () {
     return {
-      currentTime: '00:00:00',
-      duration: '--:--:--'
+      currentTime: '00:00',
+      duration: '--:--'
     }
   },
   beforeMount () {

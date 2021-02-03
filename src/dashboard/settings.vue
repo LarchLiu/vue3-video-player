@@ -99,9 +99,9 @@ export default {
       e && e.stopPropagation()
       this.panelShow = !this.panelShow
       if (this.panelShow) {
-        this.$container.classList.add('settings-open')
+        this.addClass('settings-open')
       } else {
-        this.$container.classList.remove('settings-open')
+        this.removeClass('settings-open')
       }
     },
     preventHide (e) {
@@ -139,7 +139,7 @@ export default {
       this.backCurrentPanel()
     },
     changeAutoplaySettings (status) {
-      this.$player.setConfig('autoplay', status)
+      this.emit(EVENTS.GLOBAL_AUTO_PLAY, status)
     },
     changeLoopSettings (status) {
       this.$player.setConfig('loop', status)
@@ -154,18 +154,21 @@ export default {
     this.on(EVENTS.LIFECYCLE_INITING, (player) => {
       const { autoplay, loop } = player.config
       if (autoplay) {
-        this.$refs.autoplaySwitch.open()
+        this.$refs.autoplaySwitch.switch(autoplay)
       }
       if (loop) {
-        this.$refs.loopSwitch.open()
+        this.$refs.loopSwitch.switch(loop)
       }
+    })
+    this.on(EVENTS.GLOBAL_AUTO_PLAY, (status) => {
+      this.$refs.autoplaySwitch.switch(status)
     })
     document.addEventListener('click', () => {
       if (this.panelShow) {
         this.panelShow = false
         this.speedListPanel = false
         this.resolutionListPanel = false
-        this.$container.classList.remove('settings-open')
+        this.removeClass('settings-open')
       }
     })
   }

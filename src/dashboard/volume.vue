@@ -8,9 +8,9 @@
     </div>
 
     <div class="btn-control-panel">
-      <div class="progress" @click="seek">
+      <div class="progress" @click="seek" ref="progress">
         <div class="volume-current" :style="{height: volume + '%'}">
-          <div class="thumb-drag"></div>
+          <div class="thumb-drag" @touchstart="startDrag" @mousedown="startDrag"></div>
         </div>
       </div>
       <div class="volume-info">{{volume}}%</div>
@@ -21,6 +21,9 @@
 <script>
 import coreMixins from '../mixins'
 import { inject } from 'vue'
+import { DEFAULT_CONFIG } from '../constants'
+import { isMobile } from '../helper/util'
+import { drag } from '../helper/dom'
 // import { hasClass } from '../helper/dom'
 
 export default {
@@ -38,11 +41,12 @@ export default {
   },
   created () {
     this._playerKey = this.playerKey
+    this.volume = this.muted ? 0 : parseInt(DEFAULT_CONFIG.volume * 100)
   },
   data () {
     return {
       panelShow: false,
-      volume: 50,
+      volume: 0,
       isMuted: this.muted
     }
   },
@@ -52,14 +56,67 @@ export default {
       let top = e.offsetY
       if (e.target.className === 'volume-current') {
         top += e.target.offsetTop
+      } else if (e.target.className === 'thumb-drag') {
+        top -= e.target.clientHeight / 2
+        top += e.target.offsetParent.offsetTop
       }
       const maxVal = e.currentTarget.offsetHeight
-      const volume = 1 - top / maxVal
+      let volume = 1 - top / maxVal
+      volume = volume < 0 ? 0 : volume
+      volume = volume > 1 ? 1 : volume
       if (this.isMuted) {
         this.$player.setMuted(false)
       }
       this.$player.setVolume(volume, true)
       this.setRangeValue(volume)
+    },
+
+    startDrag (e) {
+      e.preventDefault()
+      const self = this
+      this._dragEl = e.target
+      const maxVal = this.$refs.progress.offsetHeight
+      const top = e.offsetY - this._dragEl.clientHeight / 2 + this._dragEl.offsetParent.offsetTop
+      const coor = {
+        x: (isMobile ? e.touches[0].clientX : e.pageX) - this._dragEl.offsetLeft,
+        y: (isMobile ? e.touches[0].clientY : e.clientY) - this._dragEl.offsetTop - top,
+        maxTop: maxVal
+      }
+
+      const move = function (ev) {
+        if (!self._dragEl) {
+          return
+        }
+        const newCoor = drag(ev, self._dragEl, coor)
+        if (newCoor) {
+          const top = newCoor.top
+          let val = 1 - top / maxVal
+          val = val < 0 ? 0 : val
+          val = val > 1 ? 1 : val
+          if (self.isMuted) {
+            self.$player.setMuted(false)
+          }
+          self.$player.setVolume(val, true)
+          self.setRangeValue(val)
+        }
+      }
+      const stopMove = function () {
+        self._dragEl = null
+        if (isMobile) {
+          self.$refs.progress.removeEventListener('touchmove', move, false)
+          document.removeEventListener('touchend', stopMove, false)
+          return
+        }
+        document.removeEventListener('mousemove', move, false)
+        document.removeEventListener('mouseup', stopMove, false)
+      }
+      if (isMobile) {
+        self.$refs.progress.addEventListener('touchmove', move, false)
+        document.addEventListener('touchend', stopMove, false)
+        return
+      }
+      document.addEventListener('mousemove', move, false)
+      document.addEventListener('mouseup', stopMove, false)
     },
 
     setRangeValue (value) {

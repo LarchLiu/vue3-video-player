@@ -65,13 +65,13 @@ export default {
       const $parent = this.$refs.dashboard.parentNode
       if (isMobile) {
         $parent.addEventListener('touchend', this._onTouchend.bind(this), true)
+        $parent.addEventListener('touchmove', this._onTouchend.bind(this))
       } else {
         $parent.addEventListener('mousemove', this._onMousemove.bind(this))
         $parent.addEventListener('mouseleave', this._onMouseleave.bind(this))
         $parent.addEventListener('mouseover', this._onMouseover.bind(this), true)
       }
-      // first render delay
-      this.showDashboard(4000)
+      this.showDashboard(DEFAULT_CONFIG.dashboardHideDelay)
     },
     _onMousemove (e) {
       if (e.pageX === pageCoor.x && e.pageY === pageCoor.y) {
@@ -116,20 +116,21 @@ export default {
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 100%;
-  height: 59px;
-  background: linear-gradient(to top ,rgba(0,0,0, .7), rgba(0,0,0, 0));
+  width: calc(100% - 20px);
+  margin-left: 10px;
+  height: 49px;
+  background: linear-gradient(to top ,rgba(0,0,0, .5), rgba(0,0,0, 0));
 }
 .fullscreen .vcp-m-dashboard {
   bottom: 12px;
 }
 .small  .vcp-m-dashboard{
-  height: 49px;
+  height: 39px;
 }
 .settings-open .vcp-m-dashboard {
   display: block !important;
 }
 .small  .vcp-m-dashboard .vcp-controls {
-  height: 40px;
+  height: 30px;
 }
 </style>

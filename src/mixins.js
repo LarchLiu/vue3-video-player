@@ -1,7 +1,7 @@
 import ee from 'event-emitter'
 import EVENTS from './constants/EVENTS'
 import * as types from './helper/type'
-import { addClass, removeClass, registerFullScreenChangeListener } from './helper/dom'
+import { addClass, removeClass, registerFullScreenChangeListener, registerResizeListener } from './helper/dom'
 // import eventBus from './helper/eve'
 // import { getVideoCore } from './core'
 const _ee = ee()
@@ -9,9 +9,9 @@ const _ee = ee()
 const mixins = {
   data () {
     return {
-      show: false,
       fullscreen: false,
       isPlaying: false,
+      isError: false,
       _playerKey: '',
       _events: {},
       _coreID: ''
@@ -25,17 +25,25 @@ const mixins = {
     this.on(EVENTS.PLAY, () => {
       this.isPlaying = true
     })
-    this.on(EVENTS.PAUSE, () => {
+    this.on([EVENTS.PAUSE, EVENTS.ENDED], () => {
       this.isPlaying = false
+    })
+    this.on(EVENTS.ERROR, () => {
+      this.isError = true
     })
     registerFullScreenChangeListener((isFullScreen) => {
       if (isFullScreen) {
         addClass(this.$container, 'fullscreen')
-        this.emit('fullscreen', true)
       } else {
         removeClass(this.$container, 'fullscreen')
-        this.emit('fullscreen', false)
+        if (this.fullscreen) {
+          this.fullscreen = false
+        }
       }
+      this.emit(EVENTS.UI_FULLSCREEN, isFullScreen)
+    })
+    registerResizeListener(() => {
+      this.emit(EVENTS.UI_RESIZE, true)
     })
   },
   methods: {
@@ -56,13 +64,7 @@ const mixins = {
       }
       this.fullscreen = true
     },
-    cancelFullscreen (isManual) {
-      // if (isManual) {
-      //   this.emit('fullscreen', false)
-      //   removeClass(el, 'fullscreen')
-      //   this.fullscreen = false
-      //   return
-      // }
+    cancelFullscreen () {
       if (document.mozCancelFullScreen) {
         document.mozCancelFullScreen()
       } else if (document.webkitCancelFullScreen) {
@@ -78,23 +80,41 @@ const mixins = {
     on (event, callback) {
       let eventId
       if (types.isString(event)) {
-        eventId = this.eventID(event)
+        if (this.isGlobalEvent(event)) {
+          eventId = event
+        } else {
+          eventId = this.eventID(event)
+        }
         this._events[eventId] = callback
         _ee.on(eventId, callback)
       } else if (Array.isArray(event)) {
         event.forEach((item) => {
-          eventId = this.eventID(item)
+          if (this.isGlobalEvent(item)) {
+            eventId = event
+          } else {
+            eventId = this.eventID(item)
+          }
           this._events[eventId] = callback
           _ee.on(eventId, callback)
         })
       }
     },
     emit (event, res) {
-      const eventId = this.eventID(event)
+      let eventId
+      if (this.isGlobalEvent(event)) {
+        eventId = event
+      } else {
+        eventId = this.eventID(event)
+      }
       _ee.emit(eventId, res)
     },
     off (event, callback) {
-      const eventId = this.eventID(event)
+      let eventId
+      if (this.isGlobalEvent(event)) {
+        eventId = event
+      } else {
+        eventId = this.eventID(event)
+      }
       _ee.off(eventId, callback)
     },
     removeAllEvents () {
@@ -103,13 +123,16 @@ const mixins = {
       }
     },
     addClass (cls) {
-      this.$container.classList.remove(cls)
+      this.$container.classList.add(cls)
     },
     removeClass (cls) {
       this.$container.classList.remove(cls)
     },
     eventID (event) {
       return `${event}-${this._playerKey}`
+    },
+    isGlobalEvent (event) {
+      return !!event.match(/global-.*/)
     }
   },
   beforeUnmount () {

@@ -55,20 +55,16 @@ export function paddingLeadZero (num) {
   return num
 }
 
-export function secondsToTime (time, type) {
-  time = parseInt(time)
-  const s = time % 60
-  const h = parseInt(time / 3600)
-  let m = parseInt((time % 3600) / 60)
-  if (type === 'array') {
-    return [h, m, s]
+export function secondsToTime (second) {
+  second = second || 0
+  if (second === 0 || second === Infinity || second.toString() === 'NaN') {
+    return '00:00'
   }
-  if (type === 'm:s') {
-    m = parseInt(time / 60)
-    return [m, s].map((item) => paddingLeadZero(item)).join(':')
-  }
-  // default h:m:s
-  return [h, m, s].map((item) => paddingLeadZero(item)).join(':')
+  const add0 = (num) => (num < 10 ? '0' + num : '' + num)
+  const hour = Math.floor(second / 3600)
+  const min = Math.floor((second - hour * 3600) / 60)
+  const sec = Math.floor(second - hour * 3600 - min * 60)
+  return (hour > 0 ? [hour, min, sec] : [min, sec]).map(add0).join(':')
 };
 
 export function getFormatBandwidth (speed) {
@@ -145,8 +141,12 @@ export function loadImage (src, done, errorCallback) {
   }
 };
 
-const _isSafari = () => {
-  return navigator.userAgent.indexOf('Safari') > -1
+// const _isSafari = () => {
+//   return navigator.userAgent.indexOf('Safari') > -1
+// }
+
+export const isSafari = () => {
+  return !!ua.match(/version\/([\d.]+).*safari/)
 }
 
 export function debounce (fun, delay) {
@@ -220,10 +220,37 @@ export const toCamelCase = str => {
   return s.slice(0, 1).toLowerCase() + s.slice(1)
 }
 
+export const color2Number = (color) => {
+  if (color[0] === '#') {
+    color = color.substr(1)
+  }
+  if (color.length === 3) {
+    color = `${color[0]}${color[0]}${color[1]}${color[1]}${color[2]}${color[2]}`
+  }
+  return (parseInt(color, 16) + 0x000000) & 0xffffff
+}
+
+export const number2Color = (number) => { return '#' + ('00000' + number.toString(16)).slice(-6) }
+
+export const number2Type = (number) => {
+  switch (number) {
+    case 0:
+      return 'right'
+    case 1:
+      return 'top'
+    case 2:
+      return 'bottom'
+    case 3:
+      return 'left'
+    default:
+      return 'right'
+  }
+}
+
 export const isMobile = isMobileJS(ua).any
 export const isAndroid = isMobileJS(ua).android
 export const isApple = isMobileJS(ua).apple && isMobileJS(ua).apple.device
-export const isSafari = isApple && _isSafari()
+// export const isSafari = isApple && _isSafari()
 export const isTencentGroup = /MQQBrowser/i.test(ua)
 export const isUC = /ucbrowser/i.test(ua)
 export const isChrome = /chrome/i.test(ua)

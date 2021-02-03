@@ -6,6 +6,7 @@
     <play-pause-layer></play-pause-layer>
     <loading-layer></loading-layer>
     <error-layer></error-layer>
+    <barrage-layer v-bind="$attrs"></barrage-layer>
   </div>
 </template>
 
@@ -16,6 +17,7 @@ import PlayPauseLayer from './play-pause-layer.vue'
 import CoverLayer from './cover-layer'
 import LoadingLayer from './loading-layer'
 import ErrorLayer from './error-layer'
+import BarrageLayer from './barrage-layer'
 
 export default {
   name: 'Layers',
@@ -25,8 +27,10 @@ export default {
     LogoLayer,
     TitleLayer,
     LoadingLayer,
-    ErrorLayer
+    ErrorLayer,
+    BarrageLayer
   },
+  inheritAttrs: false,
   props: {
     visible: Boolean
   }

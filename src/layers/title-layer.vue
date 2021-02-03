@@ -46,21 +46,18 @@ export default {
 
 <style lang="less">
 .title-layer {
-  z-index: 11;
+  z-index: 13;
   text-align: left;
   .video-title{
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    padding: 16px 20px;
+    padding: 8px 16px;
     line-height: 32px;
-    font-size: 14px;
-    background-image: linear-gradient(to bottom ,rgba(0,0,0, .7), rgba(0,0,0, 0));
+    font-size: 16px;
+    font-weight: bold;
+    background-image: linear-gradient(to bottom ,rgba(0,0,0, .4), rgba(0,0,0, 0));
   }
 }
-.fullscreen .title-layer .video-title {
-  font-size: 16px;
-  font-weight: bold;
- }
 </style>

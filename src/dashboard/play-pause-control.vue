@@ -36,13 +36,13 @@ export default {
 <style lang="less">
 .vue-core-video-player-control {
   .btn-pause{
-    margin-left: 20px;
+    margin-left: 10px;
     svg{
       width: 15px;
     }
   }
   .btn-play{
-    margin-left: 20px;
+    margin-left: 10px;
     svg{
       width: 16px;
     }

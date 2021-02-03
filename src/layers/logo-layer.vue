@@ -45,13 +45,13 @@ export default {
 
 <style lang="less">
 .logo-layer {
-  z-index: 11;
+  z-index: 13;
   text-align: left;
   .logo-wrap{
     position: absolute;
     top: 15px;
     right: 15px;
-    opacity: .7;
+    opacity: .8;
     text-align: right;
     img {
       max-width: 160px;

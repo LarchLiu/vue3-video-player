@@ -21,10 +21,20 @@ const UI = {
   UI_DASHBOARD_SHOW: 'ui_dashboard_show',
   UI_DASHBOARD_HIDE: 'ui_dashboard_hide',
   UI_PLAY: 'ui_play',
-  UI_PAUSE: 'ui_pause'
+  UI_PAUSE: 'ui_pause',
+  UI_FULLSCREEN: 'ui_fullscreen',
+  UI_RESIZE: 'ui_resize'
+}
+
+const GLOBAL = {
+  GLOBAL_AUTO_PLAY: 'global-auto-play',
+  GLOBAL_BARRAGE_FONT_SIZE: 'global-barrage-font-size',
+  GLOBAL_BARRAGE_OPACITY: 'global-barrage-opacity',
+  GLOBAL_BARRAGE_POSITION: 'global-barrage-position'
 }
 
 const EVENTS = {
+  ...GLOBAL,
   ...ERROR,
   ...LIFE_CYCLE,
   ...SOURCE,

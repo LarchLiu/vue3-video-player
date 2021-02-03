@@ -7,7 +7,7 @@
       :loop="loop"
       :playsinline="playsinline"
       :src="source"></video>
-    <Layers />
+    <Layers v-bind="$attrs" />
     <Dashboard v-if="!isMobile" :controls="controls" :muted="muted" />
     <MobileDashboard v-if="isMobile" :controls="controls" :muted="muted" />
   </div>
@@ -28,6 +28,7 @@ import Layers from './layers/layers.vue'
 
 export default {
   name: 'Vue3VideoPlayer',
+  inheritAttrs: false,
   mixins: [coreMixins],
   components: {
     Dashboard,
@@ -115,6 +116,9 @@ export default {
   },
   created () {
     this._playerKey = this.playerKey
+    this.on(EVENTS.GLOBAL_AUTO_PLAY, (status) => {
+      this.player.setConfig('autoplay', status)
+    })
   },
   mounted () {
     // const self = this
@@ -155,7 +159,7 @@ export default {
 }
 </script>
 
-<style land="less">
+<style lang="less">
 
 .vcp-container {
   position: relative;
@@ -165,7 +169,9 @@ export default {
   background-color: #000;
 }
 .vcp-container  video{
+  display: block;
   background-color: #000;
+  // vertical-align: middle;
   width: 100%;
   height: 100%;
 }

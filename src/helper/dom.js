@@ -1,5 +1,6 @@
 
 import { isMobile } from './util'
+import _ from 'lodash'
 
 export function removeAllChildrenNodes (el) {
   while (el.firstChild) {
@@ -118,4 +119,10 @@ export function registerFullScreenChangeListener (listener) {
   document.addEventListener('webkitfullscreenchange', () => {
     listener(document.webkitIsFullScreen)
   }, false)
+}
+
+export function registerResizeListener (listener) {
+  window.addEventListener('resize', _.throttle(() => {
+    listener()
+  }, 50))
 }

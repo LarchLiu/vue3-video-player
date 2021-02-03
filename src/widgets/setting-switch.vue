@@ -21,8 +21,8 @@ export default {
       this.isOpen = !this.isOpen
       this.$emit('change', this.isOpen)
     },
-    open () {
-      this.isOpen = true
+    switch (status) {
+      this.isOpen = status
     }
   }
 }
@@ -47,11 +47,12 @@ export default {
     height: 14px;
     border-radius: 7px;
     background-color: #ff6060;
-    transition: left .2s ease-in .05s;
+    transition: all .2s ease-in .05s;
   }
   &.open{
     &:after{
       left: 23px;
+      background-color: #60ff60;
     }
   }
 }

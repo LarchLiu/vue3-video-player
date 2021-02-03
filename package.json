@@ -1,6 +1,6 @@
 {
   "name": "@cloudgeek/vue3-video-player",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "private": false,
   "scripts": {
     "dev": "vue-cli-service serve",
@@ -15,6 +15,7 @@
     "url": "git+https://github.com/LarchLiu/vue3-video-player.git"
   },
   "dependencies": {
+    "@multiavatar/multiavatar": "^1.0.5",
     "core-js": "^3.6.5",
     "event-emitter": "^0.3.5",
     "ismobilejs": "^1.1.1",

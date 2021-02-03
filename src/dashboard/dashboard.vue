@@ -70,8 +70,7 @@ export default {
         $parent.addEventListener('mouseleave', this._onMouseleave.bind(this))
         $parent.addEventListener('mouseover', this._onMouseover.bind(this), true)
       }
-      // first render delay
-      this.showDashboard(4000)
+      this.showDashboard(DEFAULT_CONFIG.dashboardHideDelay)
     },
     _onMousemove (e) {
       if (e.pageX === pageCoor.x && e.pageY === pageCoor.y) {
@@ -88,7 +87,7 @@ export default {
     },
 
     _onMouseleave () {
-      this.showDashboard()
+      this.showDashboard(200)
     },
     _onMouseover () {
       this.showDashboard(0)
@@ -116,15 +115,13 @@ export default {
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 100%;
+  width: calc(100% - 40px);
+  margin-left: 20px;
   height: 59px;
-  background: rgba(0,0,0,.5);
+  background: rgba(0,0,0,.2);
 }
 .fullscreen .vcp-dashboard {
   bottom: 60px;
-  width: 1182px;
-  left: 50%;
-  margin-left: -591px;
 }
 .small  .vcp-dashboard{
   height: 49px;

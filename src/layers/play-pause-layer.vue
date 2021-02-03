@@ -1,15 +1,16 @@
 <template>
-  <div class="vcp-layer play-pause-layer" v-show="show">
-    <a href="javascript:;" v-if="!isPlaying" class="btn-control btn-play" @click="play">
-      <svg xmlns="http://www.w3.org/2000/svg" width="31" height="35" viewBox="0 0 41 47"><path d="M23.5,0,47,41H0Z" transform="translate(41) rotate(90)" fill="#ff6060"/></svg>
+  <div class="vcp-layer play-pause-layer" @click="onClick">
+    <a href="javascript:;" v-if="!isPlaying" v-show="show" :class="['btn-control', {'mobile': isMobile}]" @click="play">
+      <svg xmlns="http://www.w3.org/2000/svg" class="btn-play" :width="isMobile ? 21 : 31" :height="isMobile ? 25 : 35" viewBox="0 0 41 47"><path d="M23.5,0,47,41H0Z" transform="translate(41) rotate(90)" fill="#ff6060"/></svg>
     </a>
-    <a href="javascript:;" v-if="isPlaying" class="btn-control btn-pause" @click="pause">
-      <svg xmlns="http://www.w3.org/2000/svg" width="27" height="36" viewBox="0 0 36 48"><g transform="translate(-950 -398)"><rect width="12" height="48" transform="translate(950 398)" fill="#ff6060"/><rect width="12" height="48" transform="translate(974 398)" fill="#ff6060"/></g></svg>
+    <a href="javascript:;" v-if="isPlaying" v-show="show" :class="['btn-control', {'mobile': isMobile}]" @click="pause">
+      <svg xmlns="http://www.w3.org/2000/svg" class="btn-pause" :width="isMobile?17:27" :height="isMobile?26:36" viewBox="0 0 36 48"><g transform="translate(-950 -398)"><rect width="12" height="48" transform="translate(950 398)" fill="#ff6060"/><rect width="12" height="48" transform="translate(974 398)" fill="#ff6060"/></g></svg>
     </a>
   </div>
 </template>
 
 <script>
+import { isMobile } from '../helper/util'
 import { EVENTS } from '../constants'
 import coreMixins from '../mixins'
 import { inject } from 'vue'
@@ -31,23 +32,56 @@ export default {
   },
   data () {
     return {
-      show: true
+      show: false,
+      isMobile: isMobile
     }
   },
   mounted () {
-    this.on(EVENTS.UI_DASHBOARD_SHOW, () => {
-      this.show = true
+    this.on(EVENTS.ERROR, () => {
+      this.show = false
     })
-    this.on(EVENTS.UI_DASHBOARD_HIDE, () => {
-      if (this.isPlaying) { this.show = false } else { this.show = true }
-    })
+    if (isMobile) {
+      this.on([EVENTS.UI_DASHBOARD_SHOW, EVENTS.ENDED, EVENTS.PAUSE], () => {
+        if (this.isError) {
+          this.show = false
+          return
+        }
+        this.show = true
+      })
+      this.on(EVENTS.UI_DASHBOARD_HIDE, () => {
+        if (this.isError) {
+          this.show = false
+          return
+        }
+        if (this.isPlaying) { this.show = false } else { this.show = true }
+      })
+    } else {
+      this.on([EVENTS.UI_DASHBOARD_HIDE, EVENTS.UI_DASHBOARD_SHOW, EVENTS.PLAY, EVENTS.ENDED, EVENTS.PAUSE], () => {
+        if (this.isError) {
+          this.show = false
+          return
+        }
+        if (this.isPlaying) { this.show = false } else { this.show = true }
+      })
+    }
+  },
+  methods: {
+    onClick () {
+      if (!isMobile) {
+        if (this.isPlaying) {
+          this.pause()
+        } else {
+          this.play()
+        }
+      }
+    }
   }
 }
 </script>
 
-<style>
+<style lang="less">
 .play-pause-layer {
-  z-index: 12;
+  z-index: 13;
   background: rgba(0,0,0, 0);
 }
 .play-pause-layer .btn-control{
@@ -77,7 +111,25 @@ export default {
   border-radius: 36px;
   background-color: rgba(255,255,255, .25);
 }
-.play-pause-layer .btn-play svg{
+.play-pause-layer .btn-control .btn-play {
   margin-left: 10px;
 }
+.play-pause-layer .mobile {
+  width: 40px;
+  height: 40px;
+  margin-left: -20px;
+  margin-top: -20px;
+  border-radius: 20px;
+}
+.play-pause-layer .mobile:before{
+  width: 48px;
+  height: 48px;
+  margin-left: -24px;
+  margin-top: -24px;
+  border-radius: 24px;
+}
+.play-pause-layer .mobile .btn-play{
+  margin-left: 7px;
+}
+
 </style>
