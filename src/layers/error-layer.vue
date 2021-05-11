@@ -1,7 +1,7 @@
 <template>
   <div class="vcp-layer error-layer" v-show="show">
    <div class="error-msg-wrap">
-     <h2>{{$t('layers.error.title')}}</h2>
+     <h2>{{$tvvp('layers.error.title')}}</h2>
      <p class="error-msg">{{errMsg}}</p>
    </div>
   </div>

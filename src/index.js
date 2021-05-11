@@ -7,7 +7,7 @@ import { setupDirectives } from './directives'
 const Vue3VideoPlayerPlugin = {
   install (app, options = {}) {
     i18n.setLocale(options.lang)
-    app.config.globalProperties.$t = function (expression) {
+    app.config.globalProperties.$tvvp = function (expression) {
       return i18n.t(expression)
     }
     setupDirectives(app)

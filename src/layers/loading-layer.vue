@@ -12,7 +12,7 @@
           <circle class="path" stroke="url(#grad)" stroke-width="10" fill="none" stroke-linecap="round" cx="40" cy="40" r="30"></circle>
         </svg>
       </div>
-      <p>{{$t('layers.loading.msg')}}</p>
+      <p>{{$tvvp('layers.loading.msg')}}</p>
     </div>
   </div>
 </template>

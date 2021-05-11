@@ -7,27 +7,27 @@
       <ul class="current-panel" v-show="currentPanel">
         <li>
           <span class="item-name">
-            {{$t('dashboard.settings.autoplay')}}
+            {{$tvvp('dashboard.settings.autoplay')}}
           </span>
           <div class="item-control">
             <widgets-switch ref="autoplaySwitch" @change="changeAutoplaySettings"></widgets-switch>
           </div>
         </li>
         <li>
-          <span class="item-name" >{{$t('dashboard.settings.loop')}}</span>
+          <span class="item-name" >{{$tvvp('dashboard.settings.loop')}}</span>
           <div class="item-control">
             <widgets-switch ref="loopSwitch" @change="changeLoopSettings"></widgets-switch>
           </div>
         </li>
         <li>
-          <span class="item-name">{{$t('dashboard.settings.speed')}}</span>
+          <span class="item-name">{{$tvvp('dashboard.settings.speed')}}</span>
           <div class="item-control" @click="showSpeedPanel">
             <span>{{speed}}x</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="5.963" height="11.568" viewBox="0 0 5.963 11.568"><path data-name="4" d="M.809.616l3.9 5-3.9 5.368" fill="none" stroke="#fff" stroke-width="2"/></svg>
           </div>
         </li>
         <li v-show="medias.length > 1">
-          <span class="item-name">{{$t('dashboard.settings.resolution')}}</span>
+          <span class="item-name">{{$tvvp('dashboard.settings.resolution')}}</span>
           <div class="item-control" v-if="resolution" @click="showResolutionPanel">
             <span>{{resolution}}</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="5.963" height="11.568" viewBox="0 0 5.963 11.568"><path data-name="4" d="M.809.616l3.9 5-3.9 5.368" fill="none" stroke="#fff" stroke-width="2"/></svg>
@@ -37,14 +37,14 @@
       <ul class="resolution-list animated fadeInRight" v-show="resolutionListPanel">
         <li @click="backCurrentPanel">
           <svg xmlns="http://www.w3.org/2000/svg" width="5.963" height="11.568" viewBox="0 0 5.963 11.568"><path data-name="5" d="M5.154.616l-3.9 5 3.9 5.368" fill="none" stroke="#fff" stroke-width="2"/></svg>
-          {{$t('dashboard.btn.back')}}
+          {{$tvvp('dashboard.btn.back')}}
         </li>
         <li v-for="(item, index) in medias" :key="index" @click="setResolution(item)">{{ item.resolution }}</li>
       </ul>
       <ul class="speed-list animated fadeInRight" v-if="speedListPanel">
         <li @click="backCurrentPanel">
           <svg xmlns="http://www.w3.org/2000/svg" width="5.963" height="11.568" viewBox="0 0 5.963 11.568"><path data-name="5" d="M5.154.616l-3.9 5 3.9 5.368" fill="none" stroke="#fff" stroke-width="2"/></svg>
-          {{$t('dashboard.btn.back')}}
+          {{$tvvp('dashboard.btn.back')}}
         </li>
         <li @click="setSpeed" data-val="0.5">0.5x</li>
         <li @click="setSpeed" data-val="1">1x</li>
