@@ -37,6 +37,10 @@ export default {
   },
   props: {
     src: [String, Array],
+    resolution: {
+      type: String,
+      default: DEFAULT_CONFIG.resolution
+    },
     autoplay: {
       type: Boolean,
       default: false
@@ -93,11 +97,11 @@ export default {
       if (!src) {
         return ''
       }
-      const resolution = DEFAULT_CONFIG.resolution
+      // const resolution = DEFAULT_CONFIG.resolution
       const medias = parseMediaList(src)
       let url
       medias.forEach((media) => {
-        if (media.resolution === resolution) {
+        if (media.resolution === this.resolution) {
           url = media.src
         }
       })

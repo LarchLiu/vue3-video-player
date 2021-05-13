@@ -1,20 +1,27 @@
 <template>
   <div id="app">
+    <div>Multi Resolution</div>
     <div class="test-player-wrap">
       <vue3-video-player @play="playFunc" :src="source" title="《Your Name》OST Sparkle" :view-core="viewCore"
-      :cover="cover" :barrageConfig="{barrageList: barrages}" :logo="logo">
+      :cover="cover" :barrageConfig="{barrageList: barrages}" :logo="logo" resolution="720p">
       </vue3-video-player>
     </div>
+    <div>Single Resolution</div>
     <div class="test-player-wrap">
       <vue3-video-player @global-auto-play="autoPlay" :src="source2" title="Smartisan T1"
       :barrageConfig="{fontSize: 20, opacity: 90, position: 80, barrageList: barrages2}" :view-core="viewCore">
+      </vue3-video-player>
+    </div>
+    <div>HLS/m3u8</div>
+    <div class="test-player-wrap">
+      <vue3-video-player :core="HLSCore" :src="liveArrSource" title="test">
       </vue3-video-player>
     </div>
   </div>
 </template>
 
 <script>
-
+import HLSCore from '@cloudgeek/playcore-hls'
 // const barragesJson = window.barragesJson
 
 const videoSource = [
@@ -48,12 +55,20 @@ const videoSource = [
 // const videoSource2 = 'https://media.vued.vanthink.cn/the_garden_of_words_trailer_english__1080p.mp4'
 const videoSource2 = 'https://static.smartisanos.cn/common/video/smartisant1.mp4'
 
+const liveArrSource = [
+  { src: 'http://ivi.bupt.edu.cn/hls/cctv2.m3u8', resolution: 'test' }
+]
+const liveStrSource = 'http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8'
+
 const cover = 'https://img1.wxzxzj.com/maxresdefault.jpg'
 
 export default {
   name: 'app',
   data () {
     return {
+      HLSCore,
+      liveArrSource,
+      liveStrSource,
       source: videoSource,
       source2: videoSource2,
       cover: cover,
