@@ -56,9 +56,9 @@ const videoSource = [
 const videoSource2 = 'https://static.smartisanos.cn/common/video/smartisant1.mp4'
 
 const liveArrSource = [
-  { src: 'https://tx1.yunchuanglive.com/live/SSAC-112680-EBFFB.m3u8', resolution: 'test' }
+  { src: 'https://gctxyc.liveplay.myqcloud.com/gc/yxhcyz_1/index.m3u8?contentid=2820180516001', resolution: 'test' }
 ]
-const liveStrSource = 'https://tx1.yunchuanglive.com/live/SSAC-112680-EBFFB.m3u8'
+const liveStrSource = 'https://gctxyc.liveplay.myqcloud.com/gc/yxhcyz_1/index.m3u8?contentid=2820180516001'
 
 const cover = 'https://img1.wxzxzj.com/maxresdefault.jpg'
 
