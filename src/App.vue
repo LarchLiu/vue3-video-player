@@ -10,6 +10,11 @@
     <div class="test-player-wrap">
       <vue3-video-player @global-auto-play="autoPlay" :src="source2" title="Smartisan T1"
       :barrageConfig="{fontSize: 20, opacity: 90, position: 80, barrageList: barrages2}" :view-core="viewCore">
+        <template #cusControls>
+          <span style="color: white; margin-right: 10px;" @click="play">play</span>
+          <picture-in-picture />
+          <fullscreen-control />
+        </template>
       </vue3-video-player>
     </div>
     <div>HLS/m3u8</div>
@@ -23,6 +28,8 @@
 <script>
 import HLSCore from '@cloudgeek/playcore-hls'
 // const barragesJson = window.barragesJson
+import Fullscreen from './dashboard/fullscreen.vue'
+import PictureInPicture from './dashboard/picture-in-picture.vue'
 
 const videoSource = [
   {
@@ -64,8 +71,17 @@ const cover = 'https://img1.wxzxzj.com/maxresdefault.jpg'
 
 export default {
   name: 'app',
+  components: {
+    'fullscreen-control': Fullscreen,
+    'picture-in-picture': PictureInPicture
+  },
   data () {
+    const viewCore = (player) => {
+      console.log(player)
+      this.player = player
+    }
     return {
+      player: null,
       HLSCore,
       liveArrSource,
       liveStrSource,
@@ -75,10 +91,13 @@ export default {
       logo: require('@/assets/logo.png'),
       barrages: [],
       barrages2: [],
-      viewCore: [(_, config) => { console.log(config) }]
+      viewCore: [viewCore]
     }
   },
   methods: {
+    play () {
+      this.player && this.player.play()
+    },
     change () {
       this.source = videoSource
     },

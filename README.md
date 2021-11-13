@@ -10,6 +10,8 @@
   
 - support barrage / danmaku
 
+- customize controls [demo](https://stackblitz.com/edit/vitejs-vite-rf6dum?file=src%2FApp.vue)
+
 - HLS plugin [@cloudgeek/playcore-hls](https://github.com/LarchLiu/playcore-hls)
 
 - [example](https://github.com/LarchLiu/vue3-video-player/blob/master/src/App.vue) &ensp; [demo](https://cloudgeektech.com/vue3-video-player/)
