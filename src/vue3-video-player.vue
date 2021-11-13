@@ -8,7 +8,13 @@
       :playsinline="playsinline"
       :src="source"></video>
     <Layers v-bind="$attrs" />
-    <Dashboard v-if="!isMobile" :controls="controls" :muted="muted" />
+    <Dashboard v-if="!isMobile" :controls="controls" :muted="muted">
+      <template #cusControls>
+        <template v-if="slots && slots.cusControls">
+          <slot name="cusControls"></slot>
+        </template>
+      </template>
+    </Dashboard>
     <MobileDashboard v-if="isMobile" :controls="controls" :muted="muted" />
   </div>
 </template>
@@ -16,7 +22,7 @@
 <script>
 import './style/common.less'
 
-import { provide } from 'vue'
+import { provide, getCurrentInstance, reactive } from 'vue'
 import { EVENTS, DEFAULT_CONFIG } from './constants'
 import { parseMediaList } from './helper/media'
 import { initVideoCore } from './core'
@@ -80,8 +86,10 @@ export default {
     const playerKey = 'key-' + guid()
     provide('playerKey', playerKey)
 
+    const slots = reactive({})
     return {
-      playerKey
+      playerKey,
+      slots
     }
   },
   data () {
@@ -123,6 +131,8 @@ export default {
     this.on(EVENTS.GLOBAL_AUTO_PLAY, (status) => {
       this.player.setConfig('autoplay', status)
     })
+    const ins = getCurrentInstance()
+    this.slots = ins.slots ? ins.slots : {}
   },
   mounted () {
     // const self = this

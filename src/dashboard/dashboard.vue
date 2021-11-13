@@ -1,7 +1,13 @@
 <template>
   <div class="vcp-dashboard" autoplay v-show="show" ref="dashboard">
     <Progress />
-    <Controls :muted="muted" />
+    <Controls :muted="muted">
+      <template #cusControls>
+        <template v-if="slots && slots.cusControls">
+          <slot name="cusControls"></slot>
+        </template>
+      </template>
+    </Controls>
   </div>
 </template>
 
@@ -12,7 +18,7 @@ import { isMobile } from '../helper/util'
 import Progress from './progress'
 import Controls from './controls'
 import coreMixins from '../mixins'
-import { inject } from 'vue'
+import { inject, getCurrentInstance, reactive } from 'vue'
 
 const pageCoor = {
   x: null,
@@ -37,11 +43,15 @@ export default {
   mixins: [coreMixins],
   setup () {
     const playerKey = inject('playerKey')
+    const slots = reactive({})
     return {
+      slots,
       playerKey
     }
   },
   created () {
+    const ins = getCurrentInstance()
+    this.slots = ins.slots ? ins.slots : {}
     this._playerKey = this.playerKey
   },
   methods: {

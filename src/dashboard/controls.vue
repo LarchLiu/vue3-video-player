@@ -5,6 +5,7 @@
       <time-span />
     </div>
     <div class="setting-control">
+      <slot name="cusControls"></slot>
       <volume-control :muted="muted" />
       <picture-in-picture />
       <settings-control />
