@@ -1,13 +1,13 @@
 {
   "name": "@cloudgeek/vue3-video-player",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "private": false,
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lib": "vue-cli-service build --target lib ./src/index.js",
     "lint": "vue-cli-service lint",
-    "publish": "npm publish --access public"
+    "release": "npm publish --access public"
   },
   "main": "dist/vue3-video-player.common.js",
   "repository": {
@@ -15,7 +15,6 @@
     "url": "git+https://github.com/LarchLiu/vue3-video-player.git"
   },
   "dependencies": {
-    "@cloudgeek/playcore-hls": "^0.1.2",
     "@multiavatar/multiavatar": "^1.0.5",
     "core-js": "^3.6.5",
     "event-emitter": "^0.3.5",
