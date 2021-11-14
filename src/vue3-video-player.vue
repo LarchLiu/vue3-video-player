@@ -78,8 +78,7 @@ export default {
       type: Function
     },
     viewCore: {
-      type: Array,
-      default: () => []
+      type: Function
     }
   },
   setup (props) {
@@ -156,14 +155,12 @@ export default {
     })
     this._coreID = this.videoCore.id
     this.emit(EVENTS.LIFECYCLE_INITING, this.player)
-    try {
-      this.viewCore.map(item => {
-        if (typeof item === 'function') {
-          item(this.player, this.player.config)
-        }
-      })
-    } catch (err) {
-      console.error(err)
+    if (this.viewCore && typeof this.viewCore === 'function') {
+      try {
+        this.viewCore(this.player)
+      } catch (err) {
+        console.error(err)
+      }
     }
   },
   beforeUnmount () {

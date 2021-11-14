@@ -61,6 +61,46 @@ app.use(Vue3VideoPlayer, {
 </div>
 ```
 
+## Customize Controls
+
+Use slot name 'cusControls' like this:
+
+```vue
+<vue3-video-player :src="source" :view-core="viewCore.bind(null, 'video1')">
+  <template #cusControls>
+    <picture-in-picture :player="player" />
+    <span class="btn-play" @click="play('video1')">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="41"
+        height="47"
+        viewBox="0 0 41 47"
+      >
+        <path
+          d="M23.5,0,47,41H0Z"
+          transform="translate(41) rotate(90)"
+          fill="#fff"
+        />
+      </svg>
+    </span>
+  </template>
+</vue3-video-player>
+```
+You can use custom components like [PictureInPicture](https://stackblitz.com/edit/vitejs-vite-rf6dum?file=src%2Fcomponents%2FPictureInPicture.vue)
+
+If you want to use video player funtion, just pass props of view-core and you will get the instance of player.
+
+If there are multiple videos you can control player with id that defined by yourself.
+
+```codes
+viewCore (id, player) {
+  console.log(id, player)
+  this.players[id] = player
+}
+```
+
+[demo code](https://stackblitz.com/edit/vitejs-vite-rf6dum?file=src%2FApp.vue)
+
 ## HLS
 ```
 import HLSCore from '@cloudgeek/playcore-hls'

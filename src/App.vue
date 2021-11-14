@@ -2,20 +2,20 @@
   <div id="app">
     <div>Multi Resolution</div>
     <div class="test-player-wrap">
-      <vue3-video-player @play="playFunc" :src="source" title="《Your Name》OST Sparkle" :view-core="viewCore"
+      <vue3-video-player @play="playFunc" :src="source" title="《Your Name》OST Sparkle" :view-core="viewCore.bind(null, 'video1')"
       :cover="cover" :barrageConfig="{barrageList: barrages}" :logo="logo" resolution="720p">
       </vue3-video-player>
     </div>
-    <div>Single Resolution</div>
+    <div>Customize Controls</div>
     <div class="test-player-wrap">
       <vue3-video-player @global-auto-play="autoPlay" :src="source2" title="Smartisan T1"
-      :barrageConfig="{fontSize: 20, opacity: 90, position: 80, barrageList: barrages2}" :view-core="viewCore">
+      :barrageConfig="{fontSize: 20, opacity: 90, position: 80, barrageList: barrages2}" :view-core="viewCore.bind(null, 'video2')">
         <template #cusControls>
-          <span style="color: white; margin-right: 10px;" @click="play">play</span>
-          <picture-in-picture />
-          <fullscreen-control />
+          <span style="color: white; margin-right: 10px; cursor: pointer;" @click="play('video2')">play</span>
         </template>
       </vue3-video-player>
+      <button style="margin: 20px;" @click="play('video1')">play 1st video</button>
+      <button @click="play('video2')">play 2nd video</button>
     </div>
     <div>HLS/m3u8</div>
     <div class="test-player-wrap">
@@ -28,8 +28,6 @@
 <script>
 import HLSCore from '@cloudgeek/playcore-hls'
 // const barragesJson = window.barragesJson
-import Fullscreen from './dashboard/fullscreen.vue'
-import PictureInPicture from './dashboard/picture-in-picture.vue'
 
 const videoSource = [
   {
@@ -71,17 +69,9 @@ const cover = 'https://img1.wxzxzj.com/maxresdefault.jpg'
 
 export default {
   name: 'app',
-  components: {
-    'fullscreen-control': Fullscreen,
-    'picture-in-picture': PictureInPicture
-  },
   data () {
-    const viewCore = (player) => {
-      console.log(player)
-      this.player = player
-    }
     return {
-      player: null,
+      players: {},
       HLSCore,
       liveArrSource,
       liveStrSource,
@@ -90,13 +80,17 @@ export default {
       cover: cover,
       logo: require('@/assets/logo.png'),
       barrages: [],
-      barrages2: [],
-      viewCore: [viewCore]
+      barrages2: []
     }
   },
   methods: {
-    play () {
-      this.player && this.player.play()
+    viewCore (id, player) {
+      console.log(id, player)
+      this.players[id] = player
+    },
+    play (id) {
+      console.log('custom play: id =', id)
+      this.players && this.players[id] && this.players[id].play()
     },
     change () {
       this.source = videoSource
