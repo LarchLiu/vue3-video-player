@@ -68,7 +68,7 @@ Use slot name 'cusControls' like this:
 ```vue
 <vue3-video-player :src="source" :view-core="viewCore.bind(null, 'video1')">
   <template #cusControls>
-    <picture-in-picture :player="player" />
+    <picture-in-picture :player="players['video1']" />
     <span class="btn-play" @click="play('video1')">
       <svg
         xmlns="http://www.w3.org/2000/svg"
