@@ -14,6 +14,8 @@
 
 - HLS plugin [@cloudgeek/playcore-hls](https://github.com/LarchLiu/playcore-hls)
 
+- i18n: zh-CN | pt-BR | jp | en(default)
+
 - [example](https://github.com/LarchLiu/vue3-video-player/blob/master/src/App.vue) &ensp; [demo](https://cloudgeektech.com/vue3-video-player/)
 
 ## Get Started
@@ -27,7 +29,7 @@ $ npm install @cloudgeek/vue3-video-player --save
 #### Yarn
 
 ``` bash
-$ yarn add @cloudgeek/vue3-video-player --save
+$ yarn add @cloudgeek/vue3-video-player
 ```
 
 ## Basic Use
@@ -92,7 +94,7 @@ If you want to use video player funtion, just pass props of view-core and you wi
 
 If there are multiple videos you can control player with id that defined by yourself.
 
-```codes
+``` vue
 viewCore (id, player) {
   console.log(id, player)
   this.players[id] = player
@@ -111,4 +113,52 @@ import HLSCore from '@cloudgeek/playcore-hls'
   <vue3-video-player :core="HLSCore" :src="liveArrSource" title="test">
   </vue3-video-player>
 </div>
+```
+
+## i18n
+You can use the built-in languages: 'en', 'zh-CN', 'pt-BR', 'jp'
+```vue
+app.use(Vue3VideoPlayer, {
+  lang: 'zh-CN'
+}).mount('#app')
+```
+Or define by yourself
+```vue
+const myLang = {
+  "dashboard" : {
+    "btn": {
+      "play": "Play",
+      "pause": "Pause",
+      "fullscreen": "Full Screen",
+      "exitFullscreen": "Exit Full Screen",
+      "mute": "Mute",
+      "unmute": "Unmute",
+      "back": "Back",
+      "pip": "Picture-in-Picture"
+    },
+    "settings" : {
+      "autoplay": "Autoplay",
+      "loop": "Loop",
+      "speed": "Speed",
+      "resolution": "Resolution"
+    }
+  },
+  "layers": {
+    "error": {
+      "title": "Error!",
+      "2404": "Video Source Undefined",
+      "2502": "Media Network Error",
+      "2503": "Video Cannot DECODE",
+      "2504": "Video Cannot Play!",
+      "601": "Live video Cannot Play!"
+    },
+    "loading": {
+      "msg": "Loading ..."
+    }
+  }
+}
+
+app.use(Vue3VideoPlayer, {
+  lang: myLang
+}).mount('#app')
 ```

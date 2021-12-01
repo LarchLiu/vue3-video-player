@@ -1,9 +1,11 @@
 import zhCNLocale from '../lang/zh-cn.json'
 import enLocale from '../lang/en.json'
 import jpLocale from '../lang/jp.json'
+import ptBRLocale from '../lang/pt-BR.json'
 
 const globalLocale = {
   'zh-CN': zhCNLocale,
+  'pt-BR': ptBRLocale,
   jp: jpLocale,
   en: enLocale
 }

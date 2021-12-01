@@ -1,0 +1,33 @@
+{
+  "dashboard" : {
+    "btn": {
+      "play": "Reproduzir",
+      "pause": "Pausa",
+      "fullscreen": "Tela inteira",
+      "exitFullscreen": "Sair da tela inteira",
+      "mute": "Sem áudio",
+      "unmute": "Reativar o som",
+      "back": "Voltar",
+      "pip": "Picture-in-Picture"
+    },
+    "settings" : {
+      "autoplay": "Reproduzir Automáticamente",
+      "loop": "Loop",
+      "speed": "Velocidade",
+      "resolution": "Resolução"
+    }
+  },
+  "layers": {
+    "error": {
+      "title": "Erro!",
+      "2404": "Entrada de vídeo não definida",
+      "2502": "Erro de rede de mídia",
+      "2503": "Vídeo não pode ser decodificado",
+      "2504": "Vído não pode ser reproduzido",
+      "601": "Live não pode ser reproduzida"
+    },
+    "loading": {
+      "msg": "Loading ..."
+    }
+  }
+}
