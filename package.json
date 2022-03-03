@@ -4,7 +4,6 @@
   "private": false,
   "scripts": {
     "dev": "vue-cli-service serve",
-    "build": "vue-cli-service build",
     "lib": "vue-cli-service build --target lib ./src/index.js",
     "lint": "vue-cli-service lint",
     "release": "npm publish --access public"
