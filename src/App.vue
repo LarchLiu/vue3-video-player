@@ -2,7 +2,7 @@
   <div id="app">
     <div>Multi Resolution</div>
     <div class="test-player-wrap">
-      <vue3-video-player @play="playFunc" :src="source" title="《Your Name》OST Sparkle" :view-core="viewCore.bind(null, 'video1')"
+      <vue3-video-player @play="playFunc" :src="source" title="Smartisan TNT" :view-core="viewCore.bind(null, 'video1')"
       :cover="cover" :barrageConfig="{barrageList: barrages}" :logo="logo" resolution="720p">
       </vue3-video-player>
     </div>
@@ -31,17 +31,17 @@ import HLSCore from '@cloudgeek/playcore-hls'
 
 const videoSource = [
   {
-    src: 'https://media.vued.vanthink.cn/y2mate.com%20-%20Sparkle%20_%20Your%20Name%20AMV_K_7To_y9IAM_240p.mp4',
+    src: 'https://static.smartisanos.cn/common/video/smartisan-tnt-jianguo.mp4',
     resolution: '240p'
   },
   {
-    src: 'https://media.vued.vanthink.cn/y2mate.com%20-%20Sparkle%20_%20Your%20Name%20AMV_K_7To_y9IAM_360p.mp4',
+    src: 'https://static.smartisanos.cn/common/video/smartisan-tnt-jianguo.mp4',
     resolution: '360p'
   }, {
-    src: 'https://media.vued.vanthink.cn/sparkle_your_name_am720p.mp4',
+    src: 'https://static.smartisanos.cn/common/video/smartisan-tnt-jianguo.mp4',
     resolution: '720p'
   }, {
-    src: 'https://media.vued.vanthink.cn/y2mate.com%20-%20sparkle_your_name_amv_K_7To_y9IAM_1080p.mp4',
+    src: 'https://static.smartisanos.cn/common/video/smartisan-tnt-jianguo.mp4',
     resolution: '1080p'
   }
 ]
@@ -65,7 +65,7 @@ const liveArrSource = [
 ]
 const liveStrSource = 'https://gctxyc.liveplay.myqcloud.com/gc/yxhcyz_1/index.m3u8?contentid=2820180516001'
 
-const cover = 'https://img1.wxzxzj.com/maxresdefault.jpg'
+const cover = 'https://static.smartisanos.cn/pr/assets/images/smartisan-tnt-jianguo.190162f215c4f5f2aaabf38e5782b3af.jpg'
 
 export default {
   name: 'app',

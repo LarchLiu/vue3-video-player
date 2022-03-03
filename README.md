@@ -101,7 +101,7 @@ viewCore (id, player) {
 }
 ```
 
-[demo code](https://stackblitz.com/edit/vitejs-vite-rf6dum?file=src%2FApp.vue)
+[example](https://stackblitz.com/edit/vitejs-vite-rf6dum?file=src%2FApp.vue)
 
 ## HLS
 ```
@@ -122,43 +122,44 @@ app.use(Vue3VideoPlayer, {
   lang: 'zh-CN'
 }).mount('#app')
 ```
-Or define by yourself
+Or defined by yourself
 ```vue
 const myLang = {
-  "dashboard" : {
-    "btn": {
-      "play": "Play",
-      "pause": "Pause",
-      "fullscreen": "Full Screen",
-      "exitFullscreen": "Exit Full Screen",
-      "mute": "Mute",
-      "unmute": "Unmute",
-      "back": "Back",
-      "pip": "Picture-in-Picture"
+  dashboard: {
+    btn: {
+      play: '播放',
+      pause: 'Pause',
+      fullscreen: 'Tela inteira',
+      exitFullscreen: 'Sair da tela inteira',
+      mute: 'Mute',
+      unmute: 'Unmute',
+      back: 'Back',
+      pip: 'ピクチャインピクチャ',
     },
-    "settings" : {
-      "autoplay": "Autoplay",
-      "loop": "Loop",
-      "speed": "Speed",
-      "resolution": "Resolution"
-    }
+    settings: {
+      autoplay: 'Autoplay',
+      loop: 'ループプレイ',
+      speed: 'Speed',
+      resolution: 'Resolution',
+    },
   },
-  "layers": {
-    "error": {
-      "title": "Error!",
-      "2404": "Video Source Undefined",
-      "2502": "Media Network Error",
-      "2503": "Video Cannot DECODE",
-      "2504": "Video Cannot Play!",
-      "601": "Live video Cannot Play!"
+  layers: {
+    error: {
+      title: 'Error!',
+      2404: 'Video Source Undefined',
+      2502: 'Media Network Error',
+      2503: 'Video Cannot DECODE',
+      2504: 'Video Cannot Play!',
+      601: 'Live video Cannot Play!',
     },
-    "loading": {
-      "msg": "Loading ..."
-    }
-  }
-}
+    loading: {
+      msg: 'Loading ...',
+    },
+  },
+};
 
 app.use(Vue3VideoPlayer, {
   lang: myLang
 }).mount('#app')
 ```
+[example](https://stackblitz.com/edit/vitejs-vite-rf6dum?file=src%2Fmain.js)
