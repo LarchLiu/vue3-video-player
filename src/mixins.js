@@ -2,6 +2,7 @@ import ee from 'event-emitter'
 import EVENTS from './constants/EVENTS'
 import * as types from './helper/type'
 import { addClass, removeClass, registerFullScreenChangeListener, registerResizeListener } from './helper/dom'
+import { isMobile, isApple } from './helper/util'
 // import eventBus from './helper/eve'
 // import { getVideoCore } from './core'
 const _ee = ee()
@@ -61,11 +62,15 @@ const mixins = {
         el.webkitRequestFullscreen()
       } else if (el.requestFullScreen) {
         el.requestFullscreen()
+      } else if (isMobile && isApple && el.firstChild?.webkitEnterFullscreen) {
+        el.firstChild.webkitEnterFullscreen()
       }
       this.fullscreen = true
     },
     cancelFullscreen () {
-      if (document.mozCancelFullScreen) {
+      if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen()
+      } else if (document.mozCancelFullScreen) {
         document.mozCancelFullScreen()
       } else if (document.webkitCancelFullScreen) {
         document.webkitCancelFullScreen()
@@ -75,7 +80,7 @@ const mixins = {
       this.fullscreen = false
     },
     getFullscreen () {
-      return (!document.fullscreenElement && !document.webkitIsFullScreen && !document.mozFullScreen && !document.msFullscreenElement)
+      return (!document.fullscreenElement && !document.webkitIsFullScreen && !document.mozFullScreen && !document.msFullscreenElement && !document.webkitDisplayingFullscreen)
     },
     on (event, callback) {
       let eventId
