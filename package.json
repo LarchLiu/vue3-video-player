@@ -1,6 +1,6 @@
 {
   "name": "@cloudgeek/vue3-video-player",
-  "version": "0.3.9",
+  "version": "0.3.10",
   "private": false,
   "scripts": {
     "dev": "vue-cli-service serve",
