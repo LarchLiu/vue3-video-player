@@ -147,9 +147,14 @@ export default {
   },
 
   mounted () {
-    this.on(EVENTS.SOURCE_UPDATED, () => {
-      this.medias = this.$player.medias
-      this.resolution = this.$player.resolution
+    this.on(EVENTS.SOURCE_UPDATED, (player) => {
+      if (player) {
+        this.medias = player.medias
+        this.resolution = player.resolution
+      } else {
+        this.medias = this.$player.medias
+        this.resolution = this.$player.resolution
+      }
     })
     this.on(EVENTS.LIFECYCLE_INITING, (player) => {
       const { autoplay, loop } = player.config
@@ -168,6 +173,7 @@ export default {
         this.panelShow = false
         this.speedListPanel = false
         this.resolutionListPanel = false
+        this.currentPanel = true
         this.removeClass('settings-open')
       }
     })

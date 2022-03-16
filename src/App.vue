@@ -19,8 +19,9 @@
     </div>
     <div>HLS/m3u8</div>
     <div class="test-player-wrap">
-      <vue3-video-player :core="HLSCore" :src="liveArrSource" title="test">
+      <vue3-video-player :core="HLSCore" :src="liveArrSource" title="test" :view-core="viewCore.bind(null, 'video3')">
       </vue3-video-player>
+      <button style="margin: 20px;" @click="pip('video3')">pip</button>
     </div>
   </div>
 </template>
@@ -61,7 +62,7 @@ const videoSource = [
 const videoSource2 = 'https://static.smartisanos.cn/common/video/smartisant1.mp4'
 
 const liveArrSource = [
-  { src: 'https://gctxyc.liveplay.myqcloud.com/gc/yxhcyz_1/index.m3u8?contentid=2820180516001', resolution: 'test' }
+  { src: 'https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8', resolution: 'test' }
 ]
 const liveStrSource = 'https://gctxyc.liveplay.myqcloud.com/gc/yxhcyz_1/index.m3u8?contentid=2820180516001'
 
@@ -91,6 +92,9 @@ export default {
     play (id) {
       console.log('custom play: id =', id)
       this.players && this.players[id] && this.players[id].play()
+    },
+    pip (id) {
+      this.players && this.players[id] && this.players[id].requestPictureInPicture()
     },
     change () {
       this.source = videoSource

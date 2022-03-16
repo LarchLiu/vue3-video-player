@@ -11,17 +11,7 @@
 // import EVENTS from '../constants/EVENTS'
 import coreMixins from '../mixins'
 import { inject } from 'vue'
-
-const _isSupportPIP = () => {
-  if ('pictureInPictureEnabled' in document) {
-    return true
-  }
-  const el = document.createElement('video')
-  if (el.requestPictureInPicture && typeof el.requestPictureInPicture === 'function') {
-    return true
-  }
-  return false
-}
+import { isSupportPIP } from '../helper/util'
 
 export default {
   name: 'PictureInPicture',
@@ -41,7 +31,7 @@ export default {
     }
   },
   created () {
-    if ((_isSupportPIP)) {
+    if (isSupportPIP) {
       this.show = true
     }
     this._playerKey = this.playerKey

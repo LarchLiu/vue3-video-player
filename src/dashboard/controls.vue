@@ -1,7 +1,7 @@
 <template>
   <div class="vcp-controls">
     <div class="playback-control">
-      <play-pause-cntrol />
+      <play-pause-control />
       <time-span />
     </div>
     <div class="setting-control">
@@ -25,7 +25,7 @@ import PictureInPicture from './picture-in-picture'
 export default {
   name: 'Controls',
   components: {
-    'play-pause-cntrol': PlayPauseControl,
+    'play-pause-control': PlayPauseControl,
     'time-span': TimeSpan,
     'volume-control': VolumeControl,
     'fullscreen-control': Fullscreen,

@@ -247,6 +247,17 @@ export const number2Type = (number) => {
   }
 }
 
+export const isSupportPIP = () => {
+  if ('pictureInPictureEnabled' in document) {
+    return true
+  }
+  const el = document.createElement('video')
+  if (el.requestPictureInPicture && typeof el.requestPictureInPicture === 'function') {
+    return true
+  }
+  return false
+}
+
 export const isMobile = isMobileJS(ua).any
 export const isAndroid = isMobileJS(ua).android
 export const isApple = isMobileJS(ua).apple && isMobileJS(ua).apple.device

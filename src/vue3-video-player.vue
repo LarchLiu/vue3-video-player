@@ -27,7 +27,7 @@ import { EVENTS, DEFAULT_CONFIG } from './constants'
 import { parseMediaList } from './helper/media'
 import { initVideoCore } from './core'
 import coreMixins from './mixins'
-import { isMobile, toCamelCase, guid } from './helper/util.js'
+import { isMobile, toCamelCase, guid, isSupportPIP } from './helper/util.js'
 import Dashboard from './dashboard/dashboard.vue'
 import MobileDashboard from './dashboard/mobile-dashboard.vue'
 import Layers from './layers/layers.vue'
@@ -164,6 +164,12 @@ export default {
     }
   },
   beforeUnmount () {
+    if (isSupportPIP) {
+      const video = this.player.$video
+      if (video === document.pictureInPictureElement) {
+        document.exitPictureInPicture()
+      }
+    }
     this.player.destroy()
   }
 
