@@ -15,33 +15,32 @@
     "url": "git+https://github.com/LarchLiu/vue3-video-player.git"
   },
   "dependencies": {
-    "@cloudgeek/playcore-hls": "^0.1.5",
+    "@cloudgeek/playcore-hls": "^0.1.6",
     "@multiavatar/multiavatar": "^1.0.5",
     "core-js": "^3.6.5",
     "event-emitter": "^0.3.5",
     "ismobilejs": "^1.1.1",
-    "load-script": "^1.0.0",
-    "vue": "^3.0.0"
+    "load-script": "^2.0.0",
+    "vue": "^3.2.0"
   },
   "files": [
     "/dist"
   ],
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "@vue/compiler-sfc": "^3.0.0",
-    "@vue/eslint-config-standard": "^5.1.2",
+    "@vue/cli-plugin-babel": "^5.0.0",
+    "@vue/cli-plugin-eslint": "^5.0.0",
+    "@vue/cli-service": "^5.0.0",
+    "@vue/compiler-sfc": "^3.2.0",
+    "@vue/eslint-config-standard": "^6.1.0",
     "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
+    "eslint": "^7.11.0",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "eslint-plugin-vue": "^7.0.0-0",
+    "eslint-plugin-promise": "^5.0.0",
+    "eslint-plugin-vue": "^7.0.0",
     "less": "^4.1.0",
-    "less-loader": "^7.2.1",
-    "serialize-javascript": "^5.0.1"
+    "less-loader": "^10.2.0",
+    "serialize-javascript": "^6.0.0"
   },
   "license": "MIT"
 }

@@ -2,7 +2,7 @@
   <div id="app">
     <div>Multi Resolution</div>
     <div class="test-player-wrap">
-      <vue3-video-player @play="playFunc" :src="source" title="Smartisan TNT" :view-core="viewCore.bind(null, 'video1')"
+      <vue3-video-player @play="playFunc" @ended="playEnded" :src="source" title="Smartisan TNT" :view-core="viewCore.bind(null, 'video1')"
       :cover="cover" :barrageConfig="{barrageList: barrages}" :logo="logo" resolution="720p">
       </vue3-video-player>
     </div>
@@ -102,6 +102,12 @@ export default {
     playFunc () {
       console.log('play!!!!')
     },
+    playEnded (e) {
+      console.log(e)
+      if (e.target === document.pictureInPictureElement) {
+        document.exitPictureInPicture()
+      }
+    },
     autoPlay (b) {
       console.log('auto play change to ' + b)
     },
@@ -174,9 +180,9 @@ export default {
     // eslint-disable-next-line
     xmlData = xmlData.replace(/(?:[\0-\x08\x0B\f\x0E-\x1F\uFFFE\uFFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])/g, '')
 
-    var data = (new DOMParser()).parseFromString(xmlData, 'text/xml')
+    const data = (new DOMParser()).parseFromString(xmlData, 'text/xml')
     const temp2 = Array.apply(Array, data.querySelectorAll('d')).map(function (line) {
-      var info = line.getAttribute('p').split(','); var text = line.textContent
+      const info = line.getAttribute('p').split(','); const text = line.textContent
       return {
         content: text,
         time: parseFloat(parseInt(Math.random() * 86698) / 1000),

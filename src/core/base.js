@@ -468,13 +468,13 @@ class BaseVideoCore {
     this._eventEmitter.once(key, callback)
   }
 
-  static set debug (value) {
-    if (value) {
-      localStorage._vueCorePlayerDebug = true
-    } else {
-      localStorage._vueCorePlayerDebug = ''
-    }
-  }
+  // static set debug (value) {
+  //   if (value) {
+  //     localStorage._vueCorePlayerDebug = true
+  //   } else {
+  //     localStorage._vueCorePlayerDebug = ''
+  //   }
+  // }
 }
 
 window.VCPVideoCore = BaseVideoCore

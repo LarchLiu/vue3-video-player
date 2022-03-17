@@ -38,7 +38,7 @@ export default {
     this.on(EVENTS.ERROR, (e) => {
       console.log(e)
       this.show = true
-      var errorKey = 'layers.error.' + e.code
+      const errorKey = 'layers.error.' + e.code
       this.errMsg = i18n.t(errorKey, '')
     })
   }
