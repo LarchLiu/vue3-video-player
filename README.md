@@ -5,6 +5,12 @@
 [![npm version](https://img.shields.io/npm/v/@cloudgeek/vue3-video-player.svg?style=flat-square)](https://www.npmjs.com/package/@cloudgeek/vue3-video-player)
 [![npm downloads](https://img.shields.io/npm/dm/@cloudgeek/vue3-video-player.svg?style=flat-square)](https://www.npmjs.com/package/@cloudgeek/vue3-video-player)
 
+## Docs
+
++ [English Document](https://core-player.github.io/vue-core-video-player/)
++ [中文文档](https://core-player.github.io/vue-core-video-player/zh/)
++ [日本語](./docs/jp/README.md)
+
 ## Feature
 - multiple instances in the same page
   
