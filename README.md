@@ -22,7 +22,7 @@
 
 - i18n: zh-CN | pt-BR | jp | en(default)
 
-- [example](https://github.com/LarchLiu/vue3-video-player/blob/master/src/App.vue) &ensp; [demo](https://cloudgeektech.com/vue3-video-player/)
+- [example](https://github.com/LarchLiu/vue3-video-player/blob/master/src/App.vue) &ensp; [demo](https://larchliu.github.io/vue3-video-player/)
 
 ## Get Started
 
