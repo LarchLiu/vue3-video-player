@@ -169,5 +169,3 @@ app.use(Vue3VideoPlayer, {
 }).mount('#app')
 ```
 [example](https://stackblitz.com/edit/vitejs-vite-rf6dum?file=src%2Fmain.js)
-
-[![Powered by DartNode](https://dartnode.com/branding/DN-Open-Source-sm.png)](https://dartnode.com "Powered by DartNode - Free VPS for Open Source")
